@@ -35,14 +35,18 @@ public class CompraService {
         for (long j = 0; j < cantidad; j++) {
             // crea entity compra y la rellena con datos aleatorios
             CompraEntity oCompraEntity = new CompraEntity();
-            // generar cantidad aleatoria entre 1 y 50
+            
+            // generar cantidad aleatoria random (1 y 50)
             oCompraEntity.setCantidad(oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(1, 50));
-            // generar id_articulo e id_factura aleatorios entre 1 y 1000
+
+            // generar id_articulo y id_factura random (1 y 1000)
             oCompraEntity.setId_articulo((long) oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(1, 1000));
             oCompraEntity.setId_factura((long) oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(1, 1000));
-            // generar precio aleatorio entre 1.00 y 100.00
+            
+            // generar precio aleatorio random (1.00 y 100.00)
             double precio = oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(100, 10000) / 100.0;
             oCompraEntity.setPrecio(java.math.BigDecimal.valueOf(precio));
+            
             // guardar entity en base de datos
             oCompraRepository.save(oCompraEntity);
         }
