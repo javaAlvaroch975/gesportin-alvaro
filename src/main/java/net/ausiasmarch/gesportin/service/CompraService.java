@@ -37,22 +37,12 @@ public class CompraService {
             CompraEntity oCompraEntity = new CompraEntity();
             // generar cantidad aleatoria entre 1 y 50
             oCompraEntity.setCantidad(oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(1, 50));
-            // obtener un articulo aleatorio de la base de datos
-            Long totalArticulos = oArticuloRepository.count();
-            if (totalArticulos > 0) {
-                List<ArticuloEntity> alArticulos = oArticuloRepository.findAll();
-                ArticuloEntity oArticulo = alArticulos.get(oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(0, alArticulos.size() - 1));
-                oCompraEntity.setId_articulo(oArticulo.getId());
-                // usar el precio del articulo
-                oCompraEntity.setPrecio(oArticulo.getPrecio());
-            }
-            // obtener una factura aleatoria de la base de datos
-            Long totalFacturas = oFacturaRepository.count();
-            if (totalFacturas > 0) {
-                List<FacturaEntity> alFacturas = oFacturaRepository.findAll();
-                FacturaEntity oFactura = alFacturas.get(oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(0, alFacturas.size() - 1));
-                oCompraEntity.setId_factura(oFactura.getId());
-            }
+            // generar id_articulo e id_factura aleatorios entre 1 y 1000
+            oCompraEntity.setId_articulo((long) oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(1, 1000));
+            oCompraEntity.setId_factura((long) oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(1, 1000));
+            // generar precio aleatorio entre 1.00 y 100.00
+            double precio = oAleatorioService.GenerarNumeroAleatorioEnteroEnRango(100, 10000) / 100.0;
+            oCompraEntity.setPrecio(java.math.BigDecimal.valueOf(precio));
             // guardar entity en base de datos
             oCompraRepository.save(oCompraEntity);
         }
